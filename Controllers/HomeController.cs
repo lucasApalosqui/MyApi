@@ -8,58 +8,94 @@ namespace MinhaApi.Controllers
     public class HomeController : ControllerBase
     {
         [HttpGet("/home")]
-        public List<TodoModel> Get([FromServices] AppDbContext context)
+        public IActionResult Get([FromServices] AppDbContext context)
         {
+            try
+            {
+                return Ok(context.Todos.ToList());
+            }catch (Exception ex)
+            {
+                return BadRequest();
+            }
             
-            return context.Todos.ToList();
         }
 
         [HttpPost("/home")]
-        public TodoModel Post([FromServices] AppDbContext context, [FromBody]TodoModel todo)
+        public IActionResult Post([FromServices] AppDbContext context, [FromBody]TodoModel todo)
         {
-            context.Todos.Add(todo);
-            context.SaveChanges();
-            return todo;
+            try
+            {
+                context.Todos.Add(todo);
+                context.SaveChanges();
+                return Created($"/{todo.Id}", todo);
+                
+            }catch (Exception ex)
+            {
+                return BadRequest();
+            }
+            
             
         }
 
         [HttpGet("/home/{id:int}")]
-        public TodoModel GetById([FromServices] AppDbContext context, [FromRoute] int id)
+        public IActionResult GetById([FromServices] AppDbContext context, [FromRoute] int id)
         {
-            return context.Todos.FirstOrDefault(x => x.Id == id);
+            try
+            {
+                var todo = context.Todos.FirstOrDefault(x => x.Id == id)
+                return Ok(todo);
+            }catch (Exception ex)
+            {
+                return BadRequest();
+            }
+            
         }
 
         [HttpPut("/home/{id:int}")]
-        public TodoModel Put([FromServices] AppDbContext context, [FromRoute] int id, [FromBody] TodoModel todo)
+        public IActionResult Put([FromServices] AppDbContext context, [FromRoute] int id, [FromBody] TodoModel todo)
         {
-            var model = context.Todos.FirstOrDefault(x => x.Id == id);
-            if (model == null)
+            try
             {
-                return null;
+                var model = context.Todos.FirstOrDefault(x => x.Id == id);
+                if (model == null)
+                {
+                    return null;
+                }
+
+                model.Title = todo.Title;
+                model.Done = todo.Done;
+
+                context.Update(model);
+                context.SaveChanges();
+
+                return Ok(model);
+            }catch (Exception ex)
+            {
+                return BadRequest();
             }
-
-            model.Title = todo.Title;
-            model.Done = todo.Done;
             
-            context.Update(model);
-            context.SaveChanges();
-
-            return model;
         }
 
         [HttpDelete("/home/{id:int}")]
-        public string Delete([FromServices] AppDbContext context, [FromRoute] int id)
+        public IActionResult Delete([FromServices] AppDbContext context, [FromRoute] int id)
         {
-            var model = context.Todos.FirstOrDefault(x => x.Id == id);
-            if (model == null)
+            try
             {
-                return "Tarefa não encontrada";
+                var model = context.Todos.FirstOrDefault(x => x.Id == id);
+                if (model == null)
+                {
+                    return NotFound("Tarefa não encontrada");
+                }
+
+                context.Todos.Remove(model);
+                context.SaveChanges();
+
+                return Ok("Tarefa removida!");
+            }catch(Exception ex)
+            {
+                return BadRequest();
             }
-
-            context.Todos.Remove(model);
-            context.SaveChanges();
-
-            return "Tarefa excluida com sucesso!";
+            
         }
 
 
