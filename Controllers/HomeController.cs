@@ -13,5 +13,14 @@ namespace MinhaApi.Controllers
             
             return context.Todos.ToList();
         }
+
+        [HttpPost("/home")]
+        public TodoModel Post([FromServices] AppDbContext context, [FromBody]TodoModel todo)
+        {
+            context.Todos.Add(todo);
+            context.SaveChanges();
+            return todo;
+            
+        }
     }
 }
