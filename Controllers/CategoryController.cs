@@ -1,5 +1,6 @@
 ﻿using BlogAspNet.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogAspNet.Controllers
 {
@@ -7,16 +8,16 @@ namespace BlogAspNet.Controllers
     public class CategoryController : ControllerBase
     {
         [HttpGet("v1/categories")]
-        public IActionResult Get([FromServices] DataContext context)
+        public async Task<IActionResult> GetAsync([FromServices] DataContext context)
         {
-            var categories = context.Categories.ToList();
+            var categories = await context.Categories.ToListAsync();
             return Ok(categories);
         }
 
         [HttpGet("v2/categories")]
-        public IActionResult Get2([FromServices] DataContext context)
+        public async Task<IActionResult> GetAsync2([FromServices] DataContext context)
         {
-            var categories = context.Categories.ToList();
+            var categories = await context.Categories.ToListAsync();
             return Ok(categories);
         }
     }
