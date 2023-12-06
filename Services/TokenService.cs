@@ -22,7 +22,8 @@ namespace BlogAspNet.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new (ClaimTypes.Name, "lucasApalosqui"), // User.Identity.Name
-                    new (ClaimTypes.Role, "admin") // User.IsInRole("admin");
+                    new (ClaimTypes.Role, "user"), // User.IsInRole("admin");
+                    new (ClaimTypes.Role, "admin")
                 }),
                 Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials( 
