@@ -13,6 +13,7 @@ namespace BlogAspNet.Controllers
         [HttpGet("v1/categories")]
         public async Task<IActionResult> GetAsync([FromServices] DataContext context)
         {
+            
             try
             {
                 var categories = await context.Categories.ToListAsync();
