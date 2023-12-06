@@ -1,4 +1,5 @@
 ﻿using BlogAspNet.Data;
+using BlogAspNet.Extensions;
 using BlogAspNet.Models;
 using BlogAspNet.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -47,6 +48,10 @@ namespace BlogAspNet.Controllers
         [HttpPost("v1/categories")]
         public async Task<IActionResult> PostAsync([FromServices] DataContext context, [FromBody] EditorCategoryViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ResultViewModel<Category>(ModelState.GetErrors()));
+            }
             try
             {
                 var category = new Category { Id = 0, Name = model.Name, Slug = model.Slug.ToLower() };
@@ -68,6 +73,10 @@ namespace BlogAspNet.Controllers
         [HttpPut("v1/categories/{id:int}")]
         public async Task<IActionResult> PutAsync([FromServices] DataContext context, [FromBody] EditorCategoryViewModel model, [FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ResultViewModel<Category>(ModelState.GetErrors()));
+            }
             try
             {
                 var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
