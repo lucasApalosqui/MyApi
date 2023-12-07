@@ -42,13 +42,13 @@ namespace BlogAspNet.Data.Mappings
             builder.Property(x => x.Bio)
                 .HasColumnName("Bio")
                 .HasColumnType("TEXT")
-                .IsRequired();
+                .IsRequired(false);
 
             builder.Property(x => x.Image)
                 .HasColumnName("Image")
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(2000)
-                .IsRequired();
+                .IsRequired(false);
 
             builder.Property(x => x.Slug)
                 .HasColumnName("Slug")
