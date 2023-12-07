@@ -1,4 +1,5 @@
-﻿using BlogAspNet.Models;
+﻿using BlogAspNet.Extensions;
+using BlogAspNet.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,15 +17,12 @@ namespace BlogAspNet.Services
             // Pega a chave 
             var key = Encoding.ASCII.GetBytes(Configuration.JwtKey);
 
+            var claims = user.GetClaims();
+
             // Cria uma especificação do token
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new (ClaimTypes.Name, "lucasApalosqui"), // User.Identity.Name
-                    new (ClaimTypes.Role, "user"), // User.IsInRole("admin");
-                    new (ClaimTypes.Role, "admin")
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials( 
                     new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
