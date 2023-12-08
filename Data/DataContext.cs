@@ -20,7 +20,7 @@ namespace BlogAspNet.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer("Server=DESKTOP-BVKU5HC;Database=BlogAspNet;Trusted_Connection=True;TrustServerCertificate=True");
+            options.UseSqlServer("Server=DESKTOP-BVKU5HC;Database=blog-modulo-6;Trusted_Connection=True;TrustServerCertificate=True");
            
         }
 
