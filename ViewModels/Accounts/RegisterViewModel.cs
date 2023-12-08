@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlogAspNet.ViewModels
+namespace BlogAspNet.ViewModels.Accounts
 {
     public class RegisterViewModel
     {
@@ -8,7 +8,7 @@ namespace BlogAspNet.ViewModels
         public string Name { get; set; }
 
         [Required(ErrorMessage = "O email é obrigatório!")]
-        [EmailAddress( ErrorMessage = "Email iválido")]
+        [EmailAddress(ErrorMessage = "Email iválido")]
         public string Email { get; set; }
     }
 }

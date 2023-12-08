@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlogAspNet.ViewModels
+namespace BlogAspNet.ViewModels.Categories
 {
     public class EditorCategoryViewModel
     {
@@ -9,6 +9,6 @@ namespace BlogAspNet.ViewModels
         public string Name { get; set; }
         [Required(ErrorMessage = "Slug é obrigatório")]
         [StringLength(40, MinimumLength = 3, ErrorMessage = "Este campo deve conter entre 3 e 40 caracteres!")]
-        public string  Slug { get; set; }
+        public string Slug { get; set; }
     }
 }

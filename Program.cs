@@ -18,6 +18,7 @@ LoadConfiguration(app);
 app.UseAuthentication();
 // pergunta oque você pode fazer
 app.UseAuthorization();
+app.UseStaticFiles();
 app.MapControllers();
 app.Run();
 
@@ -28,9 +29,9 @@ void LoadConfiguration(WebApplication app)
     Configuration.ApiKeyName = app.Configuration.GetValue<string>("ApiKeyName");
     Configuration.ApiKey = app.Configuration.GetValue<string>("ApiKey");
 
-    var smtp = new Configuration.SmtpConfiguration();
-    app.Configuration.GetSection("Smtp").Bind(smtp);
-    Configuration.Smtp = smtp;
+    //var smtp = new Configuration.SmtpConfiguration();
+    //app.Configuration.GetSection("Smtp").Bind(smtp);
+    //Configuration.Smtp = smtp;
 }
 
 void ConfigureAuthentication(WebApplicationBuilder builder)
@@ -76,7 +77,7 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddTransient<TokenService>(); // Sempre criar um novo tokenService
     //builder.Services.AddScoped(); | Reaproveita o TokenService se está na mesma Requisição
     //builder.Services.AddSingleton(); | Utiliza o mesmo tokenService até que a aplic~ção seja parada
-    builder.Services.AddTransient<EmailService>();
+    //builder.Services.AddTransient<EmailService>();
 
 
 }
