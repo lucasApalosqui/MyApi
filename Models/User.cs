@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace BlogAspNet.Models
 {
@@ -14,6 +15,7 @@ namespace BlogAspNet.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        [JsonIgnore]
         public string PasswordHash { get; set; }
         public string Bio { get; set; }
         public string Image { get; set; }

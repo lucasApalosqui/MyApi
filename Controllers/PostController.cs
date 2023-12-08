@@ -17,18 +17,18 @@ namespace BlogAspNet.Controllers
                 .AsNoTracking()
                 .Include(x => x.Category)
                 .Include(x => x.Author)
-                .Select(x => new ListPostsViewModel
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Slug = x.Slug,
-                    Author = $"{x.Author.Name} ({x.Author.Email})",
-                    Category = x.Category.Name,
-                    LastUpdateDate = x.LastUpdateDate.ToString("dd/MM/yyyy")
-                })
+                //.Select(x => new ListPostsViewModel
+                //{
+                //    Id = x.Id,
+                //    Title = x.Title,
+                //    Slug = x.Slug,
+                //    Author = $"{x.Author.Name} ({x.Author.Email})",
+                //    Category = x.Category.Name,
+                //    LastUpdateDate = x.LastUpdateDate.ToString("dd/MM/yyyy")
+                //})
                 .ToListAsync();
 
-            return Ok(new ResultViewModel<List<ListPostsViewModel>>(posts));
+            return Ok(new ResultViewModel<List<Post>>(posts));
         }
     }
 }
