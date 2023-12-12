@@ -17,6 +17,7 @@ ConfigureServices(builder);
 var app = builder.Build();
 LoadConfiguration(app);
 
+app.UseHttpsRedirection();
 // pergunta quem você é
 app.UseAuthentication();
 // pergunta oque você pode fazer
