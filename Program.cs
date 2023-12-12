@@ -24,6 +24,10 @@ app.UseAuthorization();
 app.UseResponseCompression();
 app.UseStaticFiles();
 app.MapControllers();
+if (app.Environment.IsDevelopment())
+{
+    Console.WriteLine("Estou em ambiente de desenvolvimento");
+}
 app.Run();
 
 
