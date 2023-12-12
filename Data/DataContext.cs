@@ -18,10 +18,9 @@ namespace BlogAspNet.Data
         public DbSet<User> Users { get; set; }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        public DataContext(DbContextOptions<DataContext> options ) : base(options)
         {
-            options.UseSqlServer("Server=DESKTOP-BVKU5HC;Database=blog-modulo-6;Trusted_Connection=True;TrustServerCertificate=True");
-           
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -3,6 +3,7 @@ using BlogAspNet.Data;
 using BlogAspNet.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IO.Compression;
 using System.Text;
@@ -99,7 +100,11 @@ void ConfigureMvc(WebApplicationBuilder builder)
 
 void ConfigureServices(WebApplicationBuilder builder)
 {
-    builder.Services.AddDbContext<DataContext>();
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnecion");
+    builder.Services.AddDbContext<DataContext>(options =>
+    {
+        options.UseSqlServer(connectionString);
+    });
     builder.Services.AddTransient<TokenService>(); // Sempre criar um novo tokenService
     //builder.Services.AddScoped(); | Reaproveita o TokenService se está na mesma Requisição
     //builder.Services.AddSingleton(); | Utiliza o mesmo tokenService até que a aplic~ção seja parada
